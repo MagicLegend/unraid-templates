@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Container version="2">
+  <Name>Gerbera</Name>
+  <Repository>gerbera/gerbera:3.2.1</Repository>
+  <Registry>https://hub.docker.com/r/gerbera/gerbera</Registry>
+  <Network>host</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/gerbera/gerbera/issues</Support>
+  <Project>https://gerbera.io/</Project>
+  <Overview>Gerbera is a lightweight UPnP/DLNA media server for streaming local media on your home network.</Overview>
+  <Description>Gerbera is a UPnP media server for serving audio, video, and images to DLNA/UPnP clients such as VLC. This template uses the official gerbera/gerbera Docker image, host networking for multicast discovery, a persistent config/database path at /var/run/gerbera, and a read-only media mount at /mnt/content. The official image automatically scans /mnt/content by default. Do not expose Gerbera directly to the internet; it is intended for trusted LAN or VPN/Tailscale use.</Description>
+  <Category>MediaServer:Video MediaServer:Music MediaServer:Photos</Category>
+  <WebUI>http://[IP]:[PORT:49494]</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/MagicLegend/unraid-templates/main/templates/gerbera.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/gerbera/gerbera/master/web/icons/gerbera.svg</Icon>
+  <License>GPLv2</License>
+  <MinVer>6.1</MinVer>
+  <MaxVer>7.3</MaxVer>
+  <Requires/>
+  <Config Name="Config / Database" Target="/var/run/gerbera" Default="/mnt/user/appdata/gerbera" Mode="rw" Description="Persistent Gerbera config, database, and runtime files." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/gerbera</Config>
+  <Config Name="Media Folder" Target="/mnt/content" Default="" Mode="ro" Description="Host path containing the media you want Gerbera to serve. This is mounted read-only and is automatically scanned. Example: /mnt/user/media" Type="Path" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="UID" Target="UID" Default="99" Mode="" Description="Container runtime UID. On Unraid, 99 is usually nobody." Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
+  <Config Name="GID" Target="GID" Default="100" Mode="" Description="Container runtime GID. On Unraid, 100 is usually users." Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
+  <Config Name="Web UI / HTTP Port" Target="49494" Default="49494" Mode="tcp" Description="Gerbera HTTP/Web UI/media-serving port. With host networking, this must remain available on the Unraid host." Type="Port" Display="advanced" Required="false" Mask="false">49494</Config>
+  <Config Name="SSDP Multicast" Target="1900" Default="1900" Mode="udp" Description="UPnP SSDP discovery port. Host networking is recommended because Docker bridge networking does not support the multicast discovery behavior Gerbera needs." Type="Port" Display="advanced" Required="false" Mask="false">1900</Config>
+</Container>
